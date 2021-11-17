@@ -1,0 +1,38 @@
+# This workflow will do a clean install of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: update
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '59 0 * * *'
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        rust: [stable]
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+    - uses: hecrj/setup-rust-action@v1
+      with:
+        rust-version: ${{ matrix.rust }}
+    - run: |
+        cargo build
+        ./target/debug/public-stun
+        git config --global user.name 'gcxfd'
+        git config --global user.email 'i@rmw.link'
+        git add -u
+        git commit -m'update'
+        git push
