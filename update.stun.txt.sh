@@ -4,5 +4,6 @@ DIR=$(cd "$(dirname "$0")"; pwd)
 set -ex
 cd $DIR
 
-wget http://enumer.org/public-stun.txt -O stun.txt
+wget http://enumer.org/public-stun.txt -O stun.txt.ing
+mv stun.txt.ing stun.txt
 

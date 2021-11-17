@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rmw-stun = "0.0.1"
+async-std = { version = "1.10.0", features = ["tokio1","attributes"] }
