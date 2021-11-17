@@ -17,18 +17,18 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        rust: [stable]
-
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
-    - uses: hecrj/setup-rust-action@v1
+    
+    - uses: actions-rs/toolchain@v1
       with:
-        rust-version: ${{ matrix.rust }}
+        profile: minimal
+        toolchain: stable
+
     - uses: Swatinem/rust-cache@v1
+
     - run: |
         cargo build
         ./target/debug/public-stun
