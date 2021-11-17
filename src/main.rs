@@ -21,6 +21,10 @@ async fn _addr(server: String) -> (String, Option<SocketAddr>, Duration) {
 
 #[async_std::main]
 async fn main() -> Result<()> {
+  rayon::ThreadPoolBuilder::new()
+    .num_threads(64)
+    .build_global()?;
+
   let mut dir = std::env::current_exe()?;
   dir.pop();
   dir.pop();
